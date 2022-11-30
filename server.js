@@ -26,6 +26,20 @@ app.use ( '/api/rooms', roomsRoutes);
 app.use ( '/api/users', usersRoutes);
 
 
+// Response error message for all routes
+app.use ( ( error, req, res, next) => {
+  const errorStatus = error.status || 500;
+  const errorMessage = error.message || "Someting went wrong!"
+  return res.status ( errorStatus). json ({
+    success: false,
+    status: error,
+    message: errorMessage,
+    stack: error.stack
+  })
+});
+
+
+
 
 
 
